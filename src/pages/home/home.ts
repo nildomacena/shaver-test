@@ -1,3 +1,4 @@
+import { AdMobFree, AdMobFreeBannerConfig } from '@ionic-native/admob-free';
 import { EstimoteBeacons } from '@ionic-native/estimote-beacons';
 import { Vibration } from '@ionic-native/vibration';
 import { Component } from '@angular/core';
@@ -15,27 +16,50 @@ export class HomePage {
     public audio: NativeAudio,
     public platform: Platform,
     public vibration: Vibration,
-    public beacon: EstimoteBeacons
+    public beacon: EstimoteBeacons,
+    public adMob: AdMobFree
   ) {
     this.audio.preloadSimple('shave','assets/audio/shaver.mp3').then(res => {
       console.log(res)
     })
     .catch(err =>{
       console.error('erro preload',err);
-    })
-    
-    console.log(this.platform.is('cordova'))
+    });
+
   }
 
+  ionViewDidLoad(){
+    this.platform.ready().then(_ => {
+      this.showBannerAd();
+    });
+  }
+
+  showBannerAd(){
+    const bannerConfig: AdMobFreeBannerConfig = {
+      id: 'ca-app-pub-8822334834267652/8206381981',
+      isTesting: false,
+      autoShow: true,
+    }
+    this.adMob.interstitial.config({
+      autoShow: true,
+      isTesting: false,
+      id: 'ca-app-pub-8822334834267652/7049104527'
+    })
+    this.adMob.interstitial.prepare();
+    this.adMob.banner.config(bannerConfig);
+    this.adMob.banner.prepare()
+      .then(result => {
+        this.adMob.banner.show();
+      })
+    
+    
+  }
   play(event){
-    console.log(event);
     this.playing = !this.playing;
-    console.log(this.playing);
     if(this.playing)
       this.audio.play('shave')
         .then(_ => {
           this.vibration.vibrate(1000000);
-          console.log('tocou');
         })
         .catch(err => {
           console.error(err);
@@ -44,7 +68,6 @@ export class HomePage {
       this.audio.stop('shave')
         .then(_ => {
           this.vibration.vibrate(0);
-          console.log('parou');
         })
         .catch(err => {
           console.error(err);
