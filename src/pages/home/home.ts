@@ -1,5 +1,4 @@
 import { AdMobFree, AdMobFreeBannerConfig } from '@ionic-native/admob-free';
-import { EstimoteBeacons } from '@ionic-native/estimote-beacons';
 import { Vibration } from '@ionic-native/vibration';
 import { Component } from '@angular/core';
 import { NavController, Platform } from 'ionic-angular';
@@ -16,7 +15,6 @@ export class HomePage {
     public audio: NativeAudio,
     public platform: Platform,
     public vibration: Vibration,
-    public beacon: EstimoteBeacons,
     public adMob: AdMobFree
   ) {
     this.audio.preloadSimple('shave','assets/audio/shaver.mp3').then(res => {
