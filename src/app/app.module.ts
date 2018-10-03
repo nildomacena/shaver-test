@@ -7,6 +7,7 @@ import { NativeAudio }  from '@ionic-native/native-audio';
 import { Vibration }    from '@ionic-native/vibration';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { EstimoteBeacons } from '@ionic-native/estimote-beacons';
+import { AdMobFree } from '@ionic-native/admob-free';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -32,6 +33,7 @@ import { HomePage } from '../pages/home/home';
     Vibration,
     ScreenOrientation,
     EstimoteBeacons,
+    AdMobFree,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
